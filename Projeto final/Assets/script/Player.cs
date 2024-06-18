@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -10,7 +11,10 @@ public class Player : MonoBehaviour
     public bool isJumping;
     private Animator anime;
     private SpriteRenderer sprite;
+    private bool isWalking;
 
+    // vida
+    public int playerHealth = 100;
 
     // Start is called before the first frame update
     void Start()
@@ -18,6 +22,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
         anime = GetComponent<Animator>();
         sprite = GetComponent<SpriteRenderer>();
+        Debug.Log("Life do Player: " + playerHealth);
     }
 
     // Update is called once per frame
@@ -25,7 +30,12 @@ public class Player : MonoBehaviour
     {
         Move();
         Jump();
+
+
+
     }
+
+
 
     void Move()
     {
@@ -33,6 +43,7 @@ public class Player : MonoBehaviour
         transform.position += moviment * Time.deltaTime * Speed;
 
         
+
     }
 
 
@@ -82,6 +93,15 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    public void TakeDamage( int damage)
+    {
+        playerHealth -= damage;
+        Debug.Log("Player tomou " + damage  + " de. Saúde restante: " + playerHealth);
+        if (playerHealth<= 0)
+        {
+            Debug.Log("Player Morreu!");
+           // Geme Over
+        }
+    }
 
 }
